@@ -2,10 +2,13 @@ import { Component } from 'react'
 import Section from 'components/uiComponents/Section'
 import UsersList from 'components/UserList'
 import dataJson from './users.json'
+import Button from 'components/uiComponents/Button.styled'
+import Form from 'components/Form/Form'
 
 class App extends Component {
   state = {
     users: dataJson,
+    isShowText: false,
   }
 
   deleteUsers = userId => {
@@ -22,6 +25,10 @@ class App extends Component {
     }))
   }
 
+  handleClick = () => {
+    this.setState({ isShowText: true })
+  }
+
   render() {
     const { users } = this.state
     return (
@@ -31,6 +38,13 @@ class App extends Component {
           deleteUsers={this.deleteUsers}
           changeJobStatus={this.changeJobStatus}
         />
+        {this.state.isShowText ? (
+          <Form />
+        ) : (
+          <Button onClick={this.handleClick} $bgColor="grey">
+            Show form
+          </Button>
+        )}
       </Section>
     )
   }
