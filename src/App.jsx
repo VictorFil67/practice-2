@@ -4,6 +4,7 @@ import UsersList from 'components/UserList'
 import dataJson from './users.json'
 import Button from 'components/uiComponents/Button.styled'
 import Form from 'components/Form/Form'
+import { nanoid } from 'nanoid'
 
 class App extends Component {
   state = {
@@ -29,6 +30,15 @@ class App extends Component {
     this.setState({ isShowText: true })
   }
 
+  createUser = user => {
+    const newUser = {
+      ...user,
+      id: nanoid(),
+      hasJob: false,
+    }
+    this.setState(prev => ({ users: [...prev.users, newUser], isShowText: false }))
+  }
+
   render() {
     const { users } = this.state
     return (
@@ -39,7 +49,7 @@ class App extends Component {
           changeJobStatus={this.changeJobStatus}
         />
         {this.state.isShowText ? (
-          <Form />
+          <Form createUser={this.createUser} />
         ) : (
           <Button onClick={this.handleClick} $bgColor="grey">
             Show form
