@@ -2,10 +2,14 @@ import { Component } from 'react'
 import Section from 'components/uiComponents/Section'
 import UsersList from 'components/UserList'
 import dataJson from './users.json'
+import Button from 'components/uiComponents/Button.styled'
+import Form from 'components/Form/Form'
+import { nanoid } from 'nanoid'
 
 class App extends Component {
   state = {
     users: dataJson,
+    isShowText: false,
   }
 
   deleteUsers = userId => {
@@ -22,6 +26,19 @@ class App extends Component {
     }))
   }
 
+  handleClick = () => {
+    this.setState({ isShowText: true })
+  }
+
+  createUser = user => {
+    const newUser = {
+      ...user,
+      id: nanoid(),
+      hasJob: false,
+    }
+    this.setState(prev => ({ users: [...prev.users, newUser], isShowText: false }))
+  }
+
   render() {
     const { users } = this.state
     return (
@@ -31,6 +48,13 @@ class App extends Component {
           deleteUsers={this.deleteUsers}
           changeJobStatus={this.changeJobStatus}
         />
+        {this.state.isShowText ? (
+          <Form createUser={this.createUser} />
+        ) : (
+          <Button onClick={this.handleClick} $bgColor="grey">
+            Show form
+          </Button>
+        )}
       </Section>
     )
   }
