@@ -31,12 +31,12 @@ const User = ({
             </Text>
             <a href={website}> {website}</a>
           </div>
-          <div>
+          {/* <div>
             <Text>Has Job: {hasJob.toString()}</Text>
             <Button $width="100%" onClick={() => changeJobStatus(id)}>
               Change job Status
             </Button>
-          </div>
+          </div> */}
         </InfoContainer>
       </Card>
     </Section>
