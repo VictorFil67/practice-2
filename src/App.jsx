@@ -1,17 +1,48 @@
 import { Component } from 'react'
 import Section from 'components/uiComponents/Section'
 import UsersList from 'components/UserList'
-import dataJson from './users.json'
 import Button from 'components/uiComponents/Button.styled'
 import Form from 'components/Form/Form'
 import { nanoid } from 'nanoid'
-const KEY ='users';
+import { getUsers } from 'API/users'
+import { Loader } from 'components/Loader/Loader'
+import { Notify } from 'notiflix'
 
+const LIMIT = 10
 
 class App extends Component {
   state = {
     users: null,
     isShowForm: false,
+    isLoading: false,
+    page: 1,
+  }
+
+  componentDidMount() {
+    this.getDataFromApi()
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.page !== this.state.page) {
+      this.getDataFromApi()
+    }
+  }
+
+  getDataFromApi = async () => {
+    let skip = LIMIT * this.state.page - LIMIT
+    try {
+      this.setState({ isLoading: true })
+      const { users } = await getUsers(skip, LIMIT)
+      if (this.state.page > 1) {
+        this.setState(prev => ({ users: [...prev.users, ...users] }))
+      } else {
+        this.setState({ users })
+      }
+    } catch (error) {
+      Notify.failure(error.message)
+    } finally {
+      this.setState({ isLoading: false })
+    }
   }
 
   deleteUsers = userId => {
@@ -25,7 +56,7 @@ class App extends Component {
       users: prev.users.map(user =>
         user.id === userId ? { ...user, hasJob: !user.hasJob } : user
       ),
-    }), () => localStorage.setItem(KEY, JSON.stringify(this.state.users)))
+    }))
   }
 
   handleClick = () => {
@@ -41,52 +72,26 @@ class App extends Component {
     this.setState(prev => ({ users: [...prev.users, newUser], isShowForm: false }))
   }
 
-componentDidMount() {
-  const dataFromLS = localStorage.getItem(KEY);
-  // if (!dataFromLS)  {
-  //   this.setState({users: dataJson})
-  // } else if (JSON.parse(dataFromLS).length === 0) {
-  //   this.setState({users: dataJson})
-  // } else if(dataFromLS) {
-  //   this.setState({users: JSON.parse(dataFromLS)})
-  // } 
-  if (dataFromLS && JSON.parse(dataFromLS).length) {
-    this.setState({users: JSON.parse(dataFromLS)})
-  } else {
-    this.setState({users: dataJson})
+  incrementPage = () => {
+    this.setState(prev => ({ page: prev.page + 1 }))
   }
-}
-
-// componentDidUpdate(_, prevState) {
-//   if (this.state.users !== prevState.users) {
-//     localStorage.setItem(KEY, JSON.stringify(this.state.users))
-//     console.log('saved')
-//   }
-// }
-
-componentDidUpdate(_, prevState) {
-  console.log( prevState.users)
-  if (this.state.users.length !== prevState.users?.length) {
-    localStorage.setItem(KEY, JSON.stringify(this.state.users))
-    console.log('saved')
-  }
-}
-
-
 
   render() {
-    const { users } = this.state
-    console.log('render')
+    const { users, isLoading } = this.state
+    console.log(this.state)
     return (
       <Section title={'Users List'}>
-      { users && (
-        <UsersList
-          users={users}
-          deleteUsers={this.deleteUsers}
-          changeJobStatus={this.changeJobStatus}
-        />
-      )
-      }
+        {isLoading && <Loader />}
+        {users && (
+          <>
+            <UsersList
+              users={users}
+              deleteUsers={this.deleteUsers}
+              changeJobStatus={this.changeJobStatus}
+            />
+            <Button onClick={this.incrementPage}>Load more</Button>
+          </>
+        )}
         {this.state.isShowForm ? (
           <Form createUser={this.createUser} />
         ) : (
