@@ -1,7 +1,7 @@
 import Button from 'components/uiComponents/Button.styled'
 import Section from '../uiComponents/Section'
 import { Card, InfoContainer, NativeText, Text, Title } from './User.styled'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const User = ({
   user: { id, name, avatarUrl, username, website, phone, email, hasJob },
@@ -10,7 +10,7 @@ const User = ({
 }) => {
   const isEndedBiz = email.endsWith('biz')
 
-  
+  const location = useLocation()
 
   return (
     <Section>
@@ -23,12 +23,12 @@ const User = ({
         </div>
         <InfoContainer>
           <div>
-            <Link to={`${id}`}>
-            <Title >
-              {username} {name}
-            </Title>
+            <Link to={`/search/${id}`} state={location}>
+              <Title>
+                {username} {name}
+              </Title>
             </Link>
-            
+
             <Text>
               Phone: <NativeText>{phone}</NativeText>
             </Text>
