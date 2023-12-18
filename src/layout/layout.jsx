@@ -8,6 +8,8 @@ const Layout = () => {
         <nav>
             <NavLink to={`/`}>Home page</NavLink>
             <NavLink to={`/search`}>Search users</NavLink>
+            <NavLink to={`/todo`}>Todo</NavLink>
+            <NavLink to={`/create/todo`}>CreateTodo</NavLink>
         </nav>
     </header>
     <Outlet/>
