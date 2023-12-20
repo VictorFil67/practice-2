@@ -3,11 +3,7 @@ import Section from '../uiComponents/Section'
 import { Card, InfoContainer, NativeText, Text, Title } from './User.styled'
 import { Link, useLocation } from 'react-router-dom'
 
-const User = ({
-  user: { id, name, avatarUrl, username, website, phone, email, hasJob },
-  deleteUsers,
-  changeJobStatus,
-}) => {
+const User = ({ user: { id, name, avatarUrl, username, website, phone, email, hasJob } }) => {
   const isEndedBiz = email.endsWith('biz')
 
   const location = useLocation()
@@ -17,9 +13,9 @@ const User = ({
       <Card>
         <div>
           <img src={avatarUrl} alt={'Avatar'} />
-          <Button $width="100%" onClick={() => deleteUsers(id)}>
+          {/* <Button $width="100%" onClick={() => deleteUsers(id)}>
             Delete
-          </Button>
+          </Button> */}
         </div>
         <InfoContainer>
           <div>

@@ -1,11 +1,11 @@
 import React from 'react'
 import User from '../User'
 
-const UsersList = ({ users, deleteUsers, changeJobStatus }) => {
+const UsersList = ({ users }) => {
   return (
     <ul>
       {users.map(el => (
-        <User key={el.id} user={el} deleteUsers={deleteUsers} changeJobStatus={changeJobStatus} />
+        <User key={el.id} user={el} />
       ))}
     </ul>
   )
