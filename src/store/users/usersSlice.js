@@ -14,13 +14,14 @@ const usersSlice = createSlice({
       state.isloading = true
     })
     builder.addCase(getAllUsersThunc.fulfilled, (state, action) => {
-      state.users = action.payload
+      state.users = action.payload.users
       state.isloading = false
       state.error = ''
     })
     builder.addCase(getAllUsersThunc.rejected, (state, action) => {
+      console.log(action)
       state.isloading = false
-      state.error = action.payload
+      state.error = action.error.message
     })
   },
 })
