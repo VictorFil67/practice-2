@@ -8,6 +8,12 @@ const usersSlice = createSlice({
     users: [],
     isloading: false,
     error: '',
+    filterQuery: '',
+  },
+  reducers: {
+    setFilterQuery: (state, action) => {
+      state.filterQuery = action.payload
+    },
   },
   extraReducers: builder => {
     builder.addCase(getAllUsersThunc.pending, (state, action) => {
@@ -25,4 +31,7 @@ const usersSlice = createSlice({
     })
   },
 })
+
+export const { setFilterQuery } = usersSlice.actions
+
 export const userReduser = usersSlice.reducer
