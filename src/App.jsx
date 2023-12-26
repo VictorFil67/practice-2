@@ -8,6 +8,8 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ProductsPage from 'pages/ProductsPages/ProductsPage'
 import ProductsDetailsPage from 'pages/ProductsPages/ProductsDetailsPage'
+import SignInPage from 'pages/SignInPage'
+import SignUpPage from 'pages/SignUpPage'
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductsDetailsPage />} />
         </Route>
+        <Route path="/login" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="*" element={<h1>404</h1>}></Route>
       </Routes>
     </>
