@@ -25,7 +25,6 @@ const usersSlice = createSlice({
       state.error = ''
     })
     builder.addCase(getAllUsersThunc.rejected, (state, action) => {
-      console.log(action)
       state.isloading = false
       state.error = action.error.message
     })
