@@ -1,4 +1,3 @@
-import Button from 'components/uiComponents/Button.styled'
 import Section from '../uiComponents/Section'
 import { Card, InfoContainer, NativeText, Text, Title } from './User.styled'
 import { Link, useLocation } from 'react-router-dom'

@@ -8,6 +8,7 @@ const SignInPage = () => {
   const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  // const location
 
   function submit(data) {
     dispatch(signInThunk(data))

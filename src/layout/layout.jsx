@@ -4,14 +4,17 @@ import { Nav } from './layout.styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectToken } from 'store/auth/selectors'
 import { logOut } from 'store/auth/slice'
+import { clearToken } from 'API/api'
 
 const Layout = () => {
   const token = useSelector(selectToken)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   function handleClick() {
     dispatch(logOut())
+    clearToken()
     navigate('/login')
   }
   return (

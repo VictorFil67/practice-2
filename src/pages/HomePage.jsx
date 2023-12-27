@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Section from '../components/uiComponents/Section'
 import UsersList from '../components/UserList'
 
@@ -7,7 +7,7 @@ import { Loader } from '../components/Loader/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllUsersThunc } from 'store/users/usersThunk'
 import FormUser from 'components/FormUser/FormUser'
-import { selectError, selectLoading, selectUsers } from 'store/users/selectors'
+import { selectLoading, selectUsers } from 'store/users/selectors'
 
 const LIMIT = 10
 
