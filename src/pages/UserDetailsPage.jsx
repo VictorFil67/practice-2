@@ -2,7 +2,7 @@ import { getUser } from 'API/user'
 import { Loader } from 'components/Loader/Loader'
 import { Notify } from 'notiflix'
 import React, { useEffect, useState } from 'react'
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const UserDetailsPage = () => {
   const { id } = useParams()
